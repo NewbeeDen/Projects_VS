@@ -1,0 +1,18 @@
+c:\users\den\documents\visual studio 2015\Projects\ModbusConnection\ModbusConnection\bin\Release\ModbusConnection.exe.config
+F:\Work\Projects\Modbus\ModbusConnection\bin\Release\ModbusConnection.exe.config
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.Properties.Resources.resources
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.csproj.GenerateResource.Cache
+F:\Work\Projects\Modbus\ModbusConnection\bin\Release\ModbusConnection.exe
+F:\Work\Projects\Modbus\ModbusConnection\bin\Release\EasyModbus.dll
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.csprojResolveAssemblyReference.cache
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.exe
+C:\Users\Home\Desktop\Modbus\ModbusConnection\bin\Release\ModbusConnection.exe.config
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.exe
+C:\Users\Home\Desktop\Modbus\ModbusConnection\bin\Release\ModbusConnection.exe
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.csprojResolveAssemblyReference.cache
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.UpdateVar.resources
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.Settings.resources
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.Properties.Resources.resources
+C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.csproj.GenerateResource.Cache
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.UpdateVar.resources
+F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.Settings.resources

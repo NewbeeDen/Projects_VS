@@ -1,0 +1,10 @@
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Release\TimeOfWork_manual.exe.config
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Release\TimeOfWork_manual.exe
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Release\TimeOfWork_manual.pdb
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.NewStatus.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.Settings.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.TimeOfWork.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.Properties.Resources.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.csproj.GenerateResource.Cache
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.exe
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Release\TimeOfWork_manual.pdb

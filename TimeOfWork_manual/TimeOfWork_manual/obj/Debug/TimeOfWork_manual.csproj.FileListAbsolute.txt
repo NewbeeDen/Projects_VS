@@ -1,0 +1,25 @@
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.exe.config
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.exe
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.pdb
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.csprojResolveAssemblyReference.cache
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.TimeOfWork.resources
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.Properties.Resources.resources
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.csproj.GenerateResource.Cache
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.exe
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.pdb
+c:\users\den\documents\visual studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.Settings.resources
+C:\Users\Den\Documents\Visual Studio 2015\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.NewStatus.resources
+D:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.exe.config
+D:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.exe
+D:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.pdb
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.exe.config
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.exe
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.pdb
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.exe
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\bin\Debug\TimeOfWork_manual.pdb
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.NewStatus.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.Settings.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.TimeOfWork.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.Properties.Resources.resources
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.csproj.GenerateResource.Cache
+F:\Work\Projects\TimeOfWork_manual\TimeOfWork_manual\obj\Debug\TimeOfWork_manual.csprojResolveAssemblyReference.cache
