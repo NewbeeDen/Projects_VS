@@ -5,6 +5,8 @@ using EasyModbus;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
+using System.Xml;
+using System.ComponentModel;
 
 namespace ModbusConnection
 {
@@ -28,13 +30,14 @@ namespace ModbusConnection
         private ModbusClient[] modbusClient = new ModbusClient[20];
         string[,] param;
         int[] queue;
-        string[] addresses = new string[20];
+        List<string> addresses = new List<string>();
         string[] AddressSplit = new string[2];
-        int count, z;
+        int count, z, UpdateHours, UpdateMinutes;
         System.Windows.Forms.Timer[] timers; 
         DateTime time;
         ushort ID;
         string str, Address;
+        BindingList<VerstSettings> vs = new BindingList<VerstSettings>();
 
         private static List<UpdateVar> UpdVar = new List<UpdateVar>();
 
@@ -47,7 +50,19 @@ namespace ModbusConnection
         public Trend()
         {
             InitializeComponent();
-            
+
+            Button VerstatOptions = new Button();
+            VerstatOptions.Location = new System.Drawing.Point(210, 12);
+            VerstatOptions.Size = new System.Drawing.Size(193, 23);
+            VerstatOptions.Text = "Налаштування верстату";
+            this.Controls.Add(VerstatOptions);
+            VerstatOptions.Click += VerstatOptions_Click;
+        }
+
+        private void VerstatOptions_Click(object sender, EventArgs e)
+        {
+            VerstatSettings vs = new VerstatSettings();
+            vs.Show();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -64,7 +79,7 @@ namespace ModbusConnection
             {
                 Address = param[index, 2];
                 byte Length = Convert.ToByte(1);
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < addresses.Count; i++)
                 {
                     if (param[index, 1] == addresses[i])
                     {
@@ -272,16 +287,39 @@ namespace ModbusConnection
         {
             try
             {
-                if (!SomeServerConnected)
+                if (File.Exists("VerstatSettings.xml"))
                 {
+                    XmlDocument xml = new XmlDocument();
+                    xml.Load("VerstatSettings.xml");
+                    
+                    foreach (XmlElement element in xml.GetElementsByTagName("Row"))
+                    {
+                        if (element.Attributes["ID"] == null)
+                            continue;
+                        VerstSettings vsOne = new VerstSettings();
+                        vsOne.ID = element.Attributes["ID"].Value.ToString();
+                        vsOne.IP = element.Attributes["IP"].Value.ToString();
+                        vsOne.Address = element.Attributes["Address"].Value.ToString();
+                        vsOne.Name = element.Attributes["Name"].Value.ToString();
+                        vs.Add(vsOne);
+                    }
+
+                    foreach (XmlElement elem in xml.GetElementsByTagName("Time"))
+                    {
+                        UpdateHours = Convert.ToInt16(elem.Attributes["Hour"].Value);
+                        UpdateMinutes = Convert.ToInt16(elem.Attributes["Minutes"].Value);
+                    }
+                }
+                    if (!SomeServerConnected)
+                    {
                     //Read settings file
                     StreamReader sr = new StreamReader("Settings.txt", Encoding.Default);
                     count = System.IO.File.ReadAllLines("Settings.txt").Length;
-                    z = count;
+                    z = count + 1;
                     values = new int[count, 4];
                     states = new int[count, 4];
                     param = new string[count, 8];
-                    timers = new System.Windows.Forms.Timer[count];
+                    timers = new System.Windows.Forms.Timer[z];
                     queue = new int[count];
                     for (int x = 0; x < count; x++)
                     {
@@ -359,6 +397,10 @@ namespace ModbusConnection
                         timers[i].Tick += timer1_Tick;
                     }
 
+                    timers[z] = new Timer();
+                    timers[z].Interval = 30000;
+                    timers[z].Tick += VerstatTimer_Tick;
+
                     for (int i = 0; i < 20; i++)
                     {
                         if (addresses[i] != null)
@@ -368,7 +410,7 @@ namespace ModbusConnection
                         else break;
                     }
 
-                    for (int i = 0; i < 20; i++)
+                    for (int i = 0; i < addresses.Count; i++)
                     {
                         if (modbusClient[i] != null)
                         {
@@ -387,6 +429,7 @@ namespace ModbusConnection
                     {
                         timers[i].Start();
                     }
+                    timers[z].Start();
                     Data.NETRESOURCE rc = new Data.NETRESOURCE();
                     rc.dwType = 0x00000000;
                     rc.lpRemoteName = @"\\10.0.4.242\ASUTP\";
@@ -419,6 +462,36 @@ namespace ModbusConnection
             catch (SystemException error)
             {
                 MessageBox.Show(error.Message);
+            }
+        }
+
+        private void VerstatTimer_Tick(object sender, EventArgs e)
+        {
+            if (DateTime.Now.Hour == UpdateHours && DateTime.Now.Minute == UpdateMinutes) {
+                List<int> result = new List<int>();
+                for (int j = 0; j < vs.Count; j++)
+                {
+                    for (int i = 0; i < addresses.Count; i++)
+                    {
+                        if (vs[j].Address == addresses[i])
+                        {
+                            if (modbusClient[i] != null)
+                            {
+                                int[] dataIntTemp = modbusClient[i].ReadInputRegisters(int.Parse(vs[j].Address), 1);
+                                result.Add(dataIntTemp[0]);
+                            }
+                        }
+                    }
+                }
+                string filename = @"D:\testdata\Verstat.txt";
+                StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                string Time = DateTime.Now.ToString();
+                sw.WriteLine(Time.ToString());
+                for (int i = 0; i < result.Count; i++)
+                {
+                    sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
+                }
+                sw.Close();
             }
         }
 

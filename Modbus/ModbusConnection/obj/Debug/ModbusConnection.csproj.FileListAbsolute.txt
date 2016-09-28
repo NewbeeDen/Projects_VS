@@ -80,3 +80,14 @@ C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Debug\ModbusConnection.Propert
 C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Debug\ModbusConnection.csproj.GenerateResource.Cache
 F:\Work\Projects\Modbus\ModbusConnection\obj\Debug\ModbusConnection.UpdateVar.resources
 F:\Work\Projects\Modbus\ModbusConnection\obj\Debug\ModbusConnection.Settings.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\bin\Debug\ModbusConnection.exe.config
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.exe
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.pdb
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.csprojResolveAssemblyReference.cache
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.UpdateVar.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.Settings.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.Properties.Resources.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.VerstatSettings.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Debug\ModbusConnection.csproj.GenerateResource.Cache
+D:\Work\Projects_VS\Modbus\ModbusConnection\bin\Debug\ModbusConnection.exe
+D:\Work\Projects_VS\Modbus\ModbusConnection\bin\Debug\ModbusConnection.pdb

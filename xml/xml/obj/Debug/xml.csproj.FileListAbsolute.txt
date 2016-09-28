@@ -1,0 +1,9 @@
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\bin\Debug\xml.exe.config
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\obj\Debug\xml.csprojResolveAssemblyReference.cache
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\bin\Debug\xml.exe
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\bin\Debug\xml.pdb
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\obj\Debug\xml.exe
+c:\users\den\documents\visual studio 2015\Projects\xml\xml\obj\Debug\xml.pdb
+D:\Work\Projects_VS\xml\xml\bin\Debug\xml.exe.config
+D:\Work\Projects_VS\xml\xml\obj\Debug\xml.exe
+D:\Work\Projects_VS\xml\xml\obj\Debug\xml.pdb

@@ -16,3 +16,5 @@ C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.Prope
 C:\Users\Home\Desktop\Modbus\ModbusConnection\obj\Release\ModbusConnection.csproj.GenerateResource.Cache
 F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.UpdateVar.resources
 F:\Work\Projects\Modbus\ModbusConnection\obj\Release\ModbusConnection.Settings.resources
+D:\Work\Projects_VS\Modbus\ModbusConnection\bin\Release\ModbusConnection.exe.config
+D:\Work\Projects_VS\Modbus\ModbusConnection\obj\Release\ModbusConnection.exe
