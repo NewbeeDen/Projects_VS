@@ -183,19 +183,19 @@ namespace ModbusConnection
                                     //statesTime[index, 2] = stateTime[0];
                                     string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
                                     //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
-                                    ////StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                    ////string Time = DateTime.Now.ToString();
-                                    ////string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                    ////sw.Write("\r\n");
-                                    ////if (words[1].Length == 7)
-                                    ////{
-                                    ////    sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
-                                    ////}
-                                    ////else
-                                    ////{
-                                    ////    sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
-                                    ////}
-                                    ////sw.Close();
+                                    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                    string Time = DateTime.Now.ToString();
+                                    string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    sw.Write("\r\n");
+                                    if (words[1].Length == 7)
+                                    {
+                                        sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
+                                    }
+                                    else
+                                    {
+                                        sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
+                                    }
+                                    sw.Close();
                                 }
                                 if (values[index, 2] != values[index, 3])
                                 {
