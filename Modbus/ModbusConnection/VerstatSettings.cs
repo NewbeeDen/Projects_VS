@@ -40,8 +40,8 @@ namespace ModbusConnection
 
                 foreach (XmlElement elem in xml.GetElementsByTagName("Time"))
                 {
-                    listBoxHour.Text = elem.Attributes["Hour"].Value;
-                    listBoxMinutes.Text = elem.Attributes["Minutes"].Value;
+                    comboBoxHours.Text = elem.Attributes["Hours"].Value;
+                    comboBoxMinutes.Text = elem.Attributes["Minutes"].Value;
                 }
             }
         }
@@ -88,8 +88,8 @@ namespace ModbusConnection
                     }
                  }
                 writer.WriteStartElement("Time");
-                writer.WriteAttributeString("Hour", listBoxHour.Text);
-                writer.WriteAttributeString("Minutes", listBoxMinutes.Text);
+                writer.WriteAttributeString("Hours", comboBoxHours.Text);
+                writer.WriteAttributeString("Minutes", comboBoxMinutes.Text);
                 writer.WriteEndElement();
                 writer.WriteEndElement();
 

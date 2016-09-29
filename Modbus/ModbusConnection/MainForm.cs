@@ -22,7 +22,7 @@ namespace ModbusConnection
     public partial class Trend : Form
     {
         private byte[] data1;
-        bool SomeServerConnected, BIT;
+        bool SomeServerConnected;
         bool[] dataBool = new bool[3];
         int[,] values, states, statesTime;
         int[] dataInt, state, stateTime;
@@ -30,7 +30,7 @@ namespace ModbusConnection
         private ModbusClient[] modbusClient = new ModbusClient[20];
         string[,] param;
         int[] queue;
-        List<string> addresses = new List<string>();
+        string[] addresses = new string[20];
         string[] AddressSplit = new string[2];
         int count, z, UpdateHours, UpdateMinutes;
         System.Windows.Forms.Timer[] timers; 
@@ -79,7 +79,7 @@ namespace ModbusConnection
             {
                 Address = param[index, 2];
                 byte Length = Convert.ToByte(1);
-                for (int i = 0; i < addresses.Count; i++)
+                for (int i = 0; i < 20; i++)
                 {
                     if (param[index, 1] == addresses[i])
                     {
@@ -183,19 +183,19 @@ namespace ModbusConnection
                                     //statesTime[index, 2] = stateTime[0];
                                     string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
                                     //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
-                                    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                    string Time = DateTime.Now.ToString();
-                                    string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                    sw.Write("\r\n");
-                                    if (words[1].Length == 7)
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
-                                    }
-                                    else
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
-                                    }
-                                    sw.Close();
+                                    ////StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                    ////string Time = DateTime.Now.ToString();
+                                    ////string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    ////sw.Write("\r\n");
+                                    ////if (words[1].Length == 7)
+                                    ////{
+                                    ////    sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
+                                    ////}
+                                    ////else
+                                    ////{
+                                    ////    sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
+                                    ////}
+                                    ////sw.Close();
                                 }
                                 if (values[index, 2] != values[index, 3])
                                 {
@@ -306,7 +306,7 @@ namespace ModbusConnection
 
                     foreach (XmlElement elem in xml.GetElementsByTagName("Time"))
                     {
-                        UpdateHours = Convert.ToInt16(elem.Attributes["Hour"].Value);
+                        UpdateHours = Convert.ToInt16(elem.Attributes["Hours"].Value);
                         UpdateMinutes = Convert.ToInt16(elem.Attributes["Minutes"].Value);
                     }
                 }
@@ -315,11 +315,10 @@ namespace ModbusConnection
                     //Read settings file
                     StreamReader sr = new StreamReader("Settings.txt", Encoding.Default);
                     count = System.IO.File.ReadAllLines("Settings.txt").Length;
-                    z = count + 1;
                     values = new int[count, 4];
                     states = new int[count, 4];
                     param = new string[count, 8];
-                    timers = new System.Windows.Forms.Timer[z];
+                    timers = new System.Windows.Forms.Timer[count + 1];
                     queue = new int[count];
                     for (int x = 0; x < count; x++)
                     {
@@ -397,9 +396,9 @@ namespace ModbusConnection
                         timers[i].Tick += timer1_Tick;
                     }
 
-                    timers[z] = new Timer();
-                    timers[z].Interval = 30000;
-                    timers[z].Tick += VerstatTimer_Tick;
+                    timers[count] = new Timer();
+                    timers[count].Interval = 50000;
+                    timers[count].Tick += VerstatTimer_Tick;
 
                     for (int i = 0; i < 20; i++)
                     {
@@ -410,7 +409,7 @@ namespace ModbusConnection
                         else break;
                     }
 
-                    for (int i = 0; i < addresses.Count; i++)
+                    for (int i = 0; i < 20; i++)
                     {
                         if (modbusClient[i] != null)
                         {
@@ -429,7 +428,7 @@ namespace ModbusConnection
                     {
                         timers[i].Start();
                     }
-                    timers[z].Start();
+                    timers[count].Start();
                     Data.NETRESOURCE rc = new Data.NETRESOURCE();
                     rc.dwType = 0x00000000;
                     rc.lpRemoteName = @"\\10.0.4.242\ASUTP\";
@@ -457,6 +456,7 @@ namespace ModbusConnection
                     {
                         timers[i].Stop();
                     }
+                    timers[count].Stop();
                 }
             }
             catch (SystemException error)
@@ -471,9 +471,9 @@ namespace ModbusConnection
                 List<int> result = new List<int>();
                 for (int j = 0; j < vs.Count; j++)
                 {
-                    for (int i = 0; i < addresses.Count; i++)
+                    for (int i = 0; i < 20; i++)
                     {
-                        if (vs[j].Address == addresses[i])
+                        if (vs[j].IP == addresses[i])
                         {
                             if (modbusClient[i] != null)
                             {
@@ -483,13 +483,21 @@ namespace ModbusConnection
                         }
                     }
                 }
-                string filename = @"D:\testdata\Verstat.txt";
+                string filename = @"\\10.0.4.242\ASUTP\Verstat.txt";
+                if (File.Exists(filename)) { File.Delete(filename); }
                 StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
                 string Time = DateTime.Now.ToString();
                 sw.WriteLine(Time.ToString());
                 for (int i = 0; i < result.Count; i++)
                 {
-                    sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
+                    if (i < 35)
+                    {
+                        sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
+                    }
+                    else
+                    {
+                        sw.WriteLine(vs[i].ID + "\t" + result[i]/10 + "\t" + vs[i].Name);
+                    }
                 }
                 sw.Close();
             }

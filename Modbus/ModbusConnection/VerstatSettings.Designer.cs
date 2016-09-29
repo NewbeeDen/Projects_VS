@@ -31,10 +31,10 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
-            this.listBoxHour = new System.Windows.Forms.ListBox();
-            this.listBoxMinutes = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxHours = new System.Windows.Forms.ComboBox();
+            this.comboBoxMinutes = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,10 +73,30 @@
             this.buttonDel.UseVisualStyleBackColor = true;
             this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
-            // listBoxHour
+            // label1
             // 
-            this.listBoxHour.FormattingEnabled = true;
-            this.listBoxHour.Items.AddRange(new object[] {
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(611, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(13, 20);
+            this.label1.TabIndex = 4;
+            this.label1.Text = ":";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(471, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Час оновлення";
+            // 
+            // comboBoxHours
+            // 
+            this.comboBoxHours.FormattingEnabled = true;
+            this.comboBoxHours.Items.AddRange(new object[] {
             "00",
             "01",
             "02",
@@ -101,16 +121,15 @@
             "21",
             "22",
             "23"});
-            this.listBoxHour.Location = new System.Drawing.Point(570, 17);
-            this.listBoxHour.Name = "listBoxHour";
-            this.listBoxHour.Size = new System.Drawing.Size(35, 17);
-            this.listBoxHour.TabIndex = 3;
-            this.listBoxHour.SelectedIndexChanged += new System.EventHandler(this.listBoxHour_SelectedIndexChanged);
+            this.comboBoxHours.Location = new System.Drawing.Point(567, 16);
+            this.comboBoxHours.Name = "comboBoxHours";
+            this.comboBoxHours.Size = new System.Drawing.Size(38, 21);
+            this.comboBoxHours.TabIndex = 6;
             // 
-            // listBoxMinutes
+            // comboBoxMinutes
             // 
-            this.listBoxMinutes.FormattingEnabled = true;
-            this.listBoxMinutes.Items.AddRange(new object[] {
+            this.comboBoxMinutes.FormattingEnabled = true;
+            this.comboBoxMinutes.Items.AddRange(new object[] {
             "00",
             "01",
             "02",
@@ -171,41 +190,20 @@
             "57",
             "58",
             "59"});
-            this.listBoxMinutes.Location = new System.Drawing.Point(628, 17);
-            this.listBoxMinutes.Name = "listBoxMinutes";
-            this.listBoxMinutes.Size = new System.Drawing.Size(35, 17);
-            this.listBoxMinutes.TabIndex = 3;
-            this.listBoxMinutes.SelectedIndexChanged += new System.EventHandler(this.listBoxMinutes_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(611, 14);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(13, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = ":";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(471, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Час оновлення";
+            this.comboBoxMinutes.Location = new System.Drawing.Point(626, 16);
+            this.comboBoxMinutes.Name = "comboBoxMinutes";
+            this.comboBoxMinutes.Size = new System.Drawing.Size(39, 21);
+            this.comboBoxMinutes.TabIndex = 7;
             // 
             // VerstatSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(677, 262);
+            this.Controls.Add(this.comboBoxMinutes);
+            this.Controls.Add(this.comboBoxHours);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBoxMinutes);
-            this.Controls.Add(this.listBoxHour);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView1);
@@ -223,9 +221,9 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonDel;
-        private System.Windows.Forms.ListBox listBoxHour;
-        private System.Windows.Forms.ListBox listBoxMinutes;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxHours;
+        private System.Windows.Forms.ComboBox comboBoxMinutes;
     }
 }
