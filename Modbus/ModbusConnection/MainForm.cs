@@ -417,6 +417,7 @@ namespace ModbusConnection
                             {
                                 modbusClient[i].Connect();
                             } while (!modbusClient[i].Connected);
+                            textBox.Text += modbusClient[i].IPAddress + " " + "connected" + "\r\n";
                         }
                         else { break; }
                     }
@@ -467,7 +468,7 @@ namespace ModbusConnection
 
         private void VerstatTimer_Tick(object sender, EventArgs e)
         {
-            if (DateTime.Now.Hour == UpdateHours && DateTime.Now.Minute == UpdateMinutes) {
+            if ((DateTime.Now.Hour == UpdateHours || DateTime.Now.Hour == (UpdateHours + 12)) && DateTime.Now.Minute == UpdateMinutes) {
                 List<int> result = new List<int>();
                 for (int j = 0; j < vs.Count; j++)
                 {
@@ -484,6 +485,7 @@ namespace ModbusConnection
                     }
                 }
                 string filename = @"\\10.0.4.242\ASUTP\Verstat.txt";
+                //string filename = @"Verstat.txt";
                 if (File.Exists(filename)) { File.Delete(filename); }
                 StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
                 string Time = DateTime.Now.ToString();
@@ -500,6 +502,7 @@ namespace ModbusConnection
                     }
                 }
                 sw.Close();
+                result = null;
             }
         }
 

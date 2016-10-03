@@ -16,8 +16,6 @@ namespace xml
         public string IP;
         public string Address;
         public string Type;
-        public int StateAddress;
-        public int StateTime;
         public int TimerDelay;
         public string FileName;
     }
@@ -41,10 +39,8 @@ namespace xml
                     paramstring.IP = words[1];
                     paramstring.Address = words[2];
                     paramstring.Type = words[3];
-                    paramstring.StateAddress = Convert.ToInt16(words[4]);
-                    paramstring.StateTime = Convert.ToInt16(words[5]);
-                    paramstring.TimerDelay = Convert.ToInt32(words[6]);
-                    paramstring.FileName = words[7];
+                    paramstring.TimerDelay = Convert.ToInt32(words[4]);
+                    paramstring.FileName = words[5];
                     param.Add(paramstring);
                 }
             }
@@ -65,8 +61,6 @@ namespace xml
                 writer.WriteAttributeString("IP", paramdata.IP);
                 writer.WriteAttributeString("Address", paramdata.Address);
                 writer.WriteAttributeString("Type", paramdata.Type);
-                writer.WriteAttributeString("StateAddress", paramdata.StateAddress.ToString());
-                writer.WriteAttributeString("StateTime", paramdata.StateTime.ToString());
                 writer.WriteAttributeString("TimerDelay", paramdata.TimerDelay.ToString());
                 writer.WriteAttributeString("FileName", paramdata.FileName);
                 writer.WriteEndElement();

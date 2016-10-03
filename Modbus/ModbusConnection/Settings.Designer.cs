@@ -38,6 +38,8 @@
             this.buttonDellete = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonStatusTime = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonName
@@ -115,7 +117,7 @@
             this.buttonDellete.Size = new System.Drawing.Size(29, 28);
             this.buttonDellete.TabIndex = 0;
             this.buttonDellete.UseVisualStyleBackColor = false;
-            this.buttonDellete.Click += new System.EventHandler(this.buttonDellete_Click);
+            this.buttonDellete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // button1
             // 
@@ -139,12 +141,29 @@
             this.buttonStatusTime.UseVisualStyleBackColor = true;
             this.buttonStatusTime.Click += new System.EventHandler(this.buttonStatusTime_Click);
             // 
-            // Form2
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(12, 76);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1142, 168);
+            this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1166, 256);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.buttonTime);
             this.Controls.Add(this.buttonStatusTime);
             this.Controls.Add(this.buttonStatus);
@@ -155,10 +174,11 @@
             this.Controls.Add(this.buttonName);
             this.Controls.Add(this.buttonDellete);
             this.Controls.Add(this.button1);
-            this.Name = "Form2";
+            this.Name = "Settings";
             this.Text = "Options";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form2_FormClosing);
             this.Load += new System.EventHandler(this.Form2_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -175,5 +195,6 @@
         private System.Windows.Forms.Button buttonID;
         private System.Windows.Forms.Button buttonDellete;
         private System.Windows.Forms.Button buttonStatusTime;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
