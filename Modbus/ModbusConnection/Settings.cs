@@ -19,7 +19,6 @@ namespace ModbusConnection
         ComboBox[] cb = new ComboBox[300];
         int[] arCoord = {13, 271, 395, 643, 767, 891, 1015};
         int[] arSize = {256, 122, 122, 122, 122, 122, 122};
-        string settingsstring;
         int NumberOfStrings;
         Button[] btDelete = new Button[300];
               
@@ -226,7 +225,6 @@ namespace ModbusConnection
                     }
                 }
                 writer.WriteEndElement();
-
                 writer.WriteEndDocument();
                 writer.Close();
                 //    StreamWriter sw = new StreamWriter("Settings.txt", false, Encoding.Default);

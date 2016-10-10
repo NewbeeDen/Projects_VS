@@ -52,8 +52,8 @@ namespace ModbusConnection
             InitializeComponent();
 
             Button VerstatOptions = new Button();
-            VerstatOptions.Location = new System.Drawing.Point(210, 12);
-            VerstatOptions.Size = new System.Drawing.Size(193, 23);
+            VerstatOptions.Location = new System.Drawing.Point(Options.Size.Width + Options.Location.X + 2, Options.Location.Y);
+            VerstatOptions.Size = new System.Drawing.Size(193, Options.Size.Height);
             VerstatOptions.Text = "Налаштування верстату";
             this.Controls.Add(VerstatOptions);
             VerstatOptions.Click += VerstatOptions_Click;
@@ -496,9 +496,15 @@ namespace ModbusConnection
                     {
                         sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
                     }
+                    else if (i < 41)
+                    {
+                        int res_real = result[i] / 10;
+                        sw.WriteLine(vs[i].ID + "\t" + res_real + "\t" + vs[i].Name);
+                    }
                     else
                     {
-                        sw.WriteLine(vs[i].ID + "\t" + result[i]/10 + "\t" + vs[i].Name);
+                        int res_real = result[i] / 100;
+                        sw.WriteLine(vs[i].ID + "\t" + res_real + "\t" + vs[i].Name);
                     }
                 }
                 sw.Close();
