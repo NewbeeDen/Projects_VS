@@ -25,15 +25,14 @@ namespace ModbusConnection
         bool SomeServerConnected;
         bool[] dataBool = new bool[3];
         int[,] values, states, statesTime;
-        int[] dataInt, state, stateTime;
+        int[] dataInt, state, stateTime, queue;
         private static System.Timers.Timer myTimer = new System.Timers.Timer();
         private ModbusClient[] modbusClient = new ModbusClient[20];
         string[,] param;
-        int[] queue;
         string[] addresses = new string[20];
         string[] AddressSplit = new string[2];
-        int count, z, UpdateHours, UpdateMinutes;
-        System.Windows.Forms.Timer[] timers; 
+        int count, z, UpdateHours, UpdateMinutes, Byryak;
+        Timer[] timers; 
         DateTime time;
         ushort ID;
         string str, Address;
@@ -318,7 +317,7 @@ namespace ModbusConnection
                     values = new int[count, 4];
                     states = new int[count, 4];
                     param = new string[count, 8];
-                    timers = new System.Windows.Forms.Timer[count + 1];
+                    timers = new System.Windows.Forms.Timer[count + 2];
                     queue = new int[count];
                     for (int x = 0; x < count; x++)
                     {
@@ -336,9 +335,9 @@ namespace ModbusConnection
                             param[x, 5] = words[5];
                             //else param[x, 5] = words[4];
                             //if (param[x, 3] == "REAL")
-                            param[x, 6] = words[6];
+                            //param[x, 6] = words[6];
                             //else param[x, 6] = words[5];
-                            param[x, 7] = words[7];
+                            //param[x, 7] = words[7];
                             string[] Adr = param[x, 2].Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
                             if (Adr.Length > 1)
                             {
@@ -392,13 +391,19 @@ namespace ModbusConnection
                     {
                         timers[i] = new System.Windows.Forms.Timer();
                         timers[i].Tag = i;
-                        timers[i].Interval = Convert.ToInt32(param[i, 6]) * 1000;
+                        timers[i].Interval = Convert.ToInt32(param[i, 4]) * 1000;
                         timers[i].Tick += timer1_Tick;
                     }
 
+                    //Таймер для верстата
                     timers[count] = new Timer();
-                    timers[count].Interval = 50000;
+                    timers[count].Interval = 45000;
                     timers[count].Tick += VerstatTimer_Tick;
+
+                    //Таймер для счетчика буряка
+                    timers[count + 1] = new Timer();
+                    timers[count + 1].Interval = 1000;
+                    timers[count + 1].Tick += ByryakTimer_Tick;
 
                     for (int i = 0; i < 20; i++)
                     {
@@ -425,11 +430,10 @@ namespace ModbusConnection
                     labelStatus.Text = "Connected";
                     buttonConnect.Text = "Disconnect";
                     SomeServerConnected = true;
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < count + 2; i++)
                     {
                         timers[i].Start();
                     }
-                    timers[count].Start();
                     Data.NETRESOURCE rc = new Data.NETRESOURCE();
                     rc.dwType = 0x00000000;
                     rc.lpRemoteName = @"\\10.0.4.242\ASUTP\";
@@ -453,11 +457,11 @@ namespace ModbusConnection
                     SomeServerConnected = false;
                     labelStatus.Text = "Disconnected";
                     buttonConnect.Text = "Connect";
-                    for (int i = 0; i < count; i++)
+                    for (int i = 0; i < count + 2; i++)
                     {
                         timers[i].Stop();
                     }
-                    timers[count].Stop();
+                   
                 }
             }
             catch (SystemException error)
@@ -466,9 +470,36 @@ namespace ModbusConnection
             }
         }
 
+        private void ByryakTimer_Tick(object sender, EventArgs e)
+        {
+            string filename = @"\\10.0.4.242\ASUTP\Byryak.txt";
+            for (int i = 0; i < 20; i++)
+            {
+                if (addresses[i] == "192.168.1.60")
+                {
+                    if (modbusClient[i] != null)
+                    {
+                        int[] dataIntTemp = modbusClient[i].ReadInputRegisters(int.Parse("500"), 1);
+                        if (dataIntTemp[0] >= Byryak)
+                        {
+                            Byryak = dataIntTemp[0];
+                        }
+                        else
+                        {
+                            StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                            string Time = DateTime.Now.ToString();
+                            sw.WriteLine(Time.ToString() + " " + Byryak.ToString());
+                            Byryak = dataIntTemp[0];
+                            sw.Close();
+                        }
+                    }
+                }
+            }
+        }
+
         private void VerstatTimer_Tick(object sender, EventArgs e)
         {
-            if ((DateTime.Now.Hour == UpdateHours || DateTime.Now.Hour == (UpdateHours + 12)) && DateTime.Now.Minute == UpdateMinutes) {
+            if ((DateTime.Now.Hour == UpdateHours && DateTime.Now.Minute == UpdateMinutes) || (DateTime.Now.Hour == (UpdateHours + 12) && DateTime.Now.Minute == UpdateMinutes)) {
                 List<int> result = new List<int>();
                 for (int j = 0; j < vs.Count; j++)
                 {
@@ -480,6 +511,7 @@ namespace ModbusConnection
                             {
                                 int[] dataIntTemp = modbusClient[i].ReadInputRegisters(int.Parse(vs[j].Address), 1);
                                 result.Add(dataIntTemp[0]);
+                                System.Threading.Thread.Sleep(200);
                             }
                         }
                     }
@@ -496,10 +528,9 @@ namespace ModbusConnection
                     {
                         sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
                     }
-                    else if (i < 41)
+                    else if (i < 40)
                     {
-                        int res_real = result[i] / 10;
-                        sw.WriteLine(vs[i].ID + "\t" + res_real + "\t" + vs[i].Name);
+                        sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
                     }
                     else
                     {
@@ -508,6 +539,7 @@ namespace ModbusConnection
                     }
                 }
                 sw.Close();
+                result.Clear();
                 result = null;
             }
         }
