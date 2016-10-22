@@ -78,207 +78,231 @@ namespace ModbusConnection
             {
                 Address = param[index, 2];
                 byte Length = Convert.ToByte(1);
-                for (int i = 0; i < 20; i++)
+                try
                 {
-                    if (param[index, 1] == addresses[i])
+                    for (int i = 0; i < 20; i++)
                     {
-                        if (modbusClient[i] != null)
+                        if (param[index, 1] == addresses[i])
                         {
-                            if (ID == 1)
+                            if (modbusClient[i] != null)
                             {
-                                AddressSplit = Address.ToString().Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                                if (AddressSplit.Length > 1)
+                                if (ID == 1)
                                 {
-                                    if (values[index, 0] == 0)
+                                    AddressSplit = Address.ToString().Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                                    if (AddressSplit.Length > 1)
                                     {
-                                        dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
-                                        int j = UpdVar.FindIndex(
-                                                delegate (UpdateVar uv)
-                                                {
-                                                    if (uv.ipaddress == modbusClient[i].IPAddress && uv.addr == Convert.ToInt16(AddressSplit[0]))
-                                                    {
-                                                        return true;
-                                                    }
-                                                    return false;
-                                                }
-                                                );
-                                        UpdVar[j].readedvalue = dataInt[0];
-                                        dataBool[0] = Convert.ToBoolean((dataInt[0] >> Convert.ToInt16(AddressSplit[1])) & 0x01);
-                                    }
-                                    else
-                                    {
-                                        int j = UpdVar.FindIndex(
-                                                delegate (UpdateVar uv)
-                                                {
-                                                    if (uv.ipaddress == param[index, 1] && uv.addr == Convert.ToInt16(AddressSplit[0]))
-                                                    {
-                                                        return true;
-                                                    }
-                                                    return false;
-                                                }
-                                                );
-                                        if (j != -1)
+                                        if (values[index, 0] == 0)
                                         {
-                                            if (UpdVar[j].readedvalue == -1)
+                                            dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
+                                            int j = UpdVar.FindIndex(
+                                                    delegate (UpdateVar uv)
+                                                    {
+                                                        if (uv.ipaddress == modbusClient[i].IPAddress && uv.addr == Convert.ToInt16(AddressSplit[0]))
+                                                        {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                    );
+                                            UpdVar[j].readedvalue = dataInt[0];
+                                            dataBool[0] = Convert.ToBoolean((dataInt[0] >> Convert.ToInt16(AddressSplit[1])) & 0x01);
+                                        }
+                                        else
+                                        {
+                                            int j = UpdVar.FindIndex(
+                                                    delegate (UpdateVar uv)
+                                                    {
+                                                        if (uv.ipaddress == param[index, 1] && uv.addr == Convert.ToInt16(AddressSplit[0]))
+                                                        {
+                                                            return true;
+                                                        }
+                                                        return false;
+                                                    }
+                                                    );
+                                            if (j != -1)
                                             {
-                                                dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
-                                                UpdVar[j].readedvalue = dataInt[0];
-                                                dataBool[0] = Convert.ToBoolean((UpdVar[j].readedvalue >> Convert.ToInt16(AddressSplit[1])) & 0x01);
-                                                UpdVar[j].bitsreaded++;
-                                            }
-                                            else
-                                            {
-                                                if (UpdVar[j].bitsreaded != UpdVar[j].numberofbits)
+                                                if (UpdVar[j].readedvalue == -1)
                                                 {
+                                                    dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
+                                                    UpdVar[j].readedvalue = dataInt[0];
                                                     dataBool[0] = Convert.ToBoolean((UpdVar[j].readedvalue >> Convert.ToInt16(AddressSplit[1])) & 0x01);
                                                     UpdVar[j].bitsreaded++;
                                                 }
                                                 else
                                                 {
-                                                    dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
-                                                    UpdVar[j].readedvalue = dataInt[0];
-                                                    dataBool[0] = Convert.ToBoolean((UpdVar[j].readedvalue >> Convert.ToInt16(AddressSplit[1])) & 0x01);
-                                                    UpdVar[j].bitsreaded = 1;
+                                                    if (UpdVar[j].bitsreaded != UpdVar[j].numberofbits)
+                                                    {
+                                                        dataBool[0] = Convert.ToBoolean((UpdVar[j].readedvalue >> Convert.ToInt16(AddressSplit[1])) & 0x01);
+                                                        UpdVar[j].bitsreaded++;
+                                                    }
+                                                    else
+                                                    {
+                                                        dataInt = modbusClient[i].ReadInputRegisters(int.Parse(AddressSplit[0]), Length);
+                                                        UpdVar[j].readedvalue = dataInt[0];
+                                                        dataBool[0] = Convert.ToBoolean((UpdVar[j].readedvalue >> Convert.ToInt16(AddressSplit[1])) & 0x01);
+                                                        UpdVar[j].bitsreaded = 1;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                                else {
-                                    dataBool = modbusClient[i].ReadCoils(int.Parse(Address), Length);
-                                }
-                                //if (Convert.ToUInt16(param[index, 4]) != 0)
-                                //{
-                                //    state = modbusClient[i].ReadInputRegisters(Convert.ToUInt16(param[index, 4]), Convert.ToByte(1));
-                                //}
-                                //if (Convert.ToUInt16(param[index, 5]) != 0)
-                                //{
-                                //    stateTime = modbusClient[i].ReadInputRegisters(Convert.ToUInt16(param[index, 5]), Convert.ToByte(1));
-                                //}
-                                if (z <= 0)
-                                {
-                                    textBox.Text += "\r\n";
-                                    z = count;
-                                }
-                                values[index, 3] = Convert.ToInt16(dataBool[0]);
-                                if (values[index, 0] == 0)
-                                {
-                                    if (AddressSplit.Length > 1)
-                                    {
-                                        values[index, 0] = Convert.ToInt16(AddressSplit[0]);
-                                        values[index, 1] = Convert.ToInt16(AddressSplit[1]);
+                                    else {
+                                        dataBool = modbusClient[i].ReadCoils(int.Parse(Address), Length);
                                     }
-                                    else
+                                    //if (Convert.ToUInt16(param[index, 4]) != 0)
+                                    //{
+                                    //    state = modbusClient[i].ReadInputRegisters(Convert.ToUInt16(param[index, 4]), Convert.ToByte(1));
+                                    //}
+                                    //if (Convert.ToUInt16(param[index, 5]) != 0)
+                                    //{
+                                    //    stateTime = modbusClient[i].ReadInputRegisters(Convert.ToUInt16(param[index, 5]), Convert.ToByte(1));
+                                    //}
+                                    if (z <= 0)
                                     {
-                                        values[index, 0] = Convert.ToInt16(Address);
+                                        textBox.Text += "\r\n";
+                                        z = count;
                                     }
-                                    //states[index, 0] = Convert.ToUInt16(param[index, 4]);
-                                    //statesTime[index, 0] = Convert.ToUInt16(param[index, 5]);
-                                    values[index, 2] = Convert.ToInt16(dataBool[0]);
-                                    //states[index, 1] = state[0];
-                                    //statesTime[index, 1] = stateTime[0];
-                                    ////values[index, 3] = Convert.ToInt16(dataBool[0]);
+                                    values[index, 3] = Convert.ToInt16(dataBool[0]);
+                                    if (values[index, 0] == 0)
+                                    {
+                                        if (AddressSplit.Length > 1)
+                                        {
+                                            values[index, 0] = Convert.ToInt16(AddressSplit[0]);
+                                            values[index, 1] = Convert.ToInt16(AddressSplit[1]);
+                                        }
+                                        else
+                                        {
+                                            values[index, 0] = Convert.ToInt16(Address);
+                                        }
+                                        //states[index, 0] = Convert.ToUInt16(param[index, 4]);
+                                        //statesTime[index, 0] = Convert.ToUInt16(param[index, 5]);
+                                        values[index, 2] = Convert.ToInt16(dataBool[0]);
+                                        //states[index, 1] = state[0];
+                                        //statesTime[index, 1] = stateTime[0];
+                                        ////values[index, 3] = Convert.ToInt16(dataBool[0]);
+                                        //states[index, 2] = state[0];
+                                        //statesTime[index, 2] = stateTime[0];
+                                        string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
+                                        //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
+                                        if (File.Exists(filename))
+                                        {
+                                            StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                            string Time = DateTime.Now.ToString();
+                                            string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            sw.Write("\r\n");
+                                            if (words[1].Length == 7)
+                                            {
+                                                sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
+                                            }
+                                            else
+                                            {
+                                                sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
+                                            }
+                                            sw.Close();
+                                        }
+                                    }
+                                    if (values[index, 2] != values[index, 3])
+                                    {
+                                        string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
+                                        //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
+                                        if (File.Exists(filename))
+                                        {
+                                            StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                            string Time = DateTime.Now.ToString();
+                                            string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                            sw.Write("\r\n");
+                                            if (words[1].Length == 7)
+                                            {
+                                                sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
+                                            }
+                                            else
+                                            {
+                                                sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3].ToString());
+                                            }
+                                            sw.Close();
+                                        }
+                                        values[index, 2] = values[index, 3];
+                                    }
                                     //states[index, 2] = state[0];
+                                    //if (states[index, 1] != states[index, 2])
+                                    //{
+                                    //    states[index, 1] = states[index, 2];
+                                    //    string filename = @"\\10.0.4.243\exchange$\ASUTP\" + param[index, 6] + ".txt";
+                                    //    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                    //    sw.Write("\t" + states[index, 2]);
+                                    //    sw.Close();
+                                    //}
                                     //statesTime[index, 2] = stateTime[0];
-                                    string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
-                                    //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
-                                    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                    string Time = DateTime.Now.ToString();
-                                    string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                    sw.Write("\r\n");
-                                    if (words[1].Length == 7)
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
-                                    }
-                                    else
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
-                                    }
-                                    sw.Close();
-                                }
-                                if (values[index, 2] != values[index, 3])
-                                {
-                                    string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
-                                    //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
-                                    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                    string Time = DateTime.Now.ToString();
-                                    string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                                    sw.Write("\r\n");
-                                    if (words[1].Length == 7)
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + "0" + words[1].ToString() + "\t" + values[index, 3].ToString());
-                                    }
-                                    else
-                                    {
-                                        sw.Write(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3].ToString());
-                                    }
-                                    sw.Close();
-                                    values[index, 2] = values[index, 3];
-                                }
-                                //states[index, 2] = state[0];
-                                //if (states[index, 1] != states[index, 2])
-                                //{
-                                //    states[index, 1] = states[index, 2];
-                                //    string filename = @"\\10.0.4.243\exchange$\ASUTP\" + param[index, 6] + ".txt";
-                                //    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                //    sw.Write("\t" + states[index, 2]);
-                                //    sw.Close();
-                                //}
-                                //statesTime[index, 2] = stateTime[0];
-                                //if (statesTime[index, 1] != statesTime[index, 2])
-                                //{
-                                //    statesTime[index, 1] = statesTime[index, 2];
-                                //    string filename = @"\\10.0.4.243\exchange$\ASUTP\" + param[index, 6] + ".txt";
-                                //    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                                //    sw.Write("\t" + statesTime[index, 2]);
-                                //    sw.Close();
-                                //}
+                                    //if (statesTime[index, 1] != statesTime[index, 2])
+                                    //{
+                                    //    statesTime[index, 1] = statesTime[index, 2];
+                                    //    string filename = @"\\10.0.4.243\exchange$\ASUTP\" + param[index, 6] + ".txt";
+                                    //    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                    //    sw.Write("\t" + statesTime[index, 2]);
+                                    //    sw.Close();
+                                    //}
 
-                                //textBox.Text += Address + ":" + values[index, 3].ToString() + " "/* + " " + statesTime[index, 2].ToString()*/;
-                                //z--;
-                        }
-                        return;
-                    }
-                    else dataInt = modbusClient[i].ReadInputRegisters(int.Parse(Address), Length);
-                    if (z <= 0)
-                    {
-                        textBox.Text += DateTime.Now + " ";
-                        textBox.Text += "\r\n";
-                        z = count;
-                    }
-                    AddressSplit = Address.ToString().Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (values[index, 0] == 0)
-                        {
-                        if (AddressSplit.Length > 1)
-                            {
-                                values[index, 0] = Convert.ToInt16(AddressSplit[0]);
-                                values[index, 1] = Convert.ToInt16(AddressSplit[1]);
+                                    //textBox.Text += Address + ":" + values[index, 3].ToString() + " "/* + " " + statesTime[index, 2].ToString()*/;
+                                    //z--;
+                                }
+                                return;
                             }
-                            else
+                            else dataInt = modbusClient[i].ReadInputRegisters(int.Parse(Address), Length);
+                            if (z <= 0)
                             {
-                                values[index, 0] = Convert.ToInt16(Address);
+                                textBox.Text += DateTime.Now + " ";
+                                textBox.Text += "\r\n";
+                                z = count;
                             }
-                            values[index, 2] = dataInt[0];
+                            AddressSplit = Address.ToString().Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            if (values[index, 0] == 0)
+                            {
+                                if (AddressSplit.Length > 1)
+                                {
+                                    values[index, 0] = Convert.ToInt16(AddressSplit[0]);
+                                    values[index, 1] = Convert.ToInt16(AddressSplit[1]);
+                                }
+                                else
+                                {
+                                    values[index, 0] = Convert.ToInt16(Address);
+                                }
+                                values[index, 2] = dataInt[0];
+                                values[index, 3] = dataInt[0];
+                            }
                             values[index, 3] = dataInt[0];
+                            if (values[index, 2] != values[index, 3])
+                            {
+                                values[index, 2] = values[index, 3];
+                                string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
+                                //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
+                                if (File.Exists(filename))
+                                {
+                                    StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                    string Time = DateTime.Now.ToString();
+                                    string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    sw.WriteLine(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
+                                    sw.Close();
+                                }
+                            }
+                            //textBox.Text += Address.ToString() + ":" + dataInt[0].ToString() + " ";
+                            //z--;
                         }
-                        values[index, 3] = dataInt[0];
-                        if (values[index, 2] != values[index, 3])
-                        {
-                            values[index, 2] = values[index, 3];
-                            string filename = @"\\10.0.4.242\ASUTP\" + param[index, 7] + ".txt";
-                            //string filename = @"D:\testdata\" + param[index, 7] + ".txt";
-                            StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                            string Time = DateTime.Now.ToString();
-                            string[] words = Time.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            sw.WriteLine(words[0].ToString() + "\t" + words[1].ToString() + "\t" + values[index, 3]);
-                            sw.Close();
-                        }
-                        //textBox.Text += Address.ToString() + ":" + dataInt[0].ToString() + " ";
-                        //z--;
                     }
                 }
+                catch (Exception) { WriteLog(param[index, 1]); }
                 time = DateTime.Now;
                 int[] word = new int[1];
+            }
+        }
+
+        private void WriteLog(string Adr)
+        {
+            string filename = "Log.txt";
+            if (File.Exists(filename))
+            {
+                StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                sw.WriteLine(DateTime.Now + " " + Adr);
+                sw.Close(); 
             }
         }
 
@@ -480,17 +504,20 @@ namespace ModbusConnection
                     if (modbusClient[i] != null)
                     {
                         int[] dataIntTemp = modbusClient[i].ReadInputRegisters(int.Parse("500"), 1);
-                        if (dataIntTemp[0] >= Byryak)
+                        if (dataIntTemp[0] >= Byryak && dataIntTemp[0] < 1000)
                         {
                             Byryak = dataIntTemp[0];
                         }
                         else
                         {
-                            StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
-                            string Time = DateTime.Now.ToString();
-                            sw.WriteLine(Time.ToString() + " " + Byryak.ToString());
-                            Byryak = dataIntTemp[0];
-                            sw.Close();
+                            if (File.Exists(filename))
+                            {
+                                StreamWriter sw = new StreamWriter(filename, true, Encoding.Default);
+                                string Time = DateTime.Now.ToString();
+                                sw.WriteLine(Time.ToString() + " " + Byryak.ToString());
+                                Byryak = dataIntTemp[0];
+                                sw.Close();
+                            }
                         }
                     }
                 }
@@ -510,6 +537,10 @@ namespace ModbusConnection
                             if (modbusClient[i] != null)
                             {
                                 int[] dataIntTemp = modbusClient[i].ReadInputRegisters(int.Parse(vs[j].Address), 1);
+                                if (dataIntTemp[0] < 0)
+                                {
+                                    dataIntTemp[0] = 0;
+                                }
                                 result.Add(dataIntTemp[0]);
                                 System.Threading.Thread.Sleep(200);
                             }
@@ -524,14 +555,14 @@ namespace ModbusConnection
                 sw.WriteLine(Time.ToString());
                 for (int i = 0; i < result.Count; i++)
                 {
-                    if (i < 35)
+                    if (i < 40)
                     {
                         sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
                     }
-                    else if (i < 40)
-                    {
-                        sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
-                    }
+                    //else if (i < 40)
+                    //{
+                    //    sw.WriteLine(vs[i].ID + "\t" + result[i] + "\t" + vs[i].Name);
+                    //}
                     else
                     {
                         int res_real = result[i] / 100;
