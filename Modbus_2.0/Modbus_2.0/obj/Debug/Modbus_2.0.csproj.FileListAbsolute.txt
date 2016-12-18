@@ -1,0 +1,13 @@
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\Modbus_2.0.exe.config
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\Modbus_2.0.exe
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\Modbus_2.0.pdb
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2.0.csprojResolveAssemblyReference.cache
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2._0.MainForm.resources
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2._0.Properties.Resources.resources
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2._0.Settings.resources
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2.0.csproj.GenerateResource.Cache
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2.0.exe
+c:\users\work\documents\visual studio 2015\Projects\Modbus_2.0\Modbus_2.0\obj\Debug\Modbus_2.0.pdb
+C:\Users\WORK\Documents\Visual Studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\ModbusTCP.dll
+C:\Users\WORK\Documents\Visual Studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\ModbusTCP.pdb
+C:\Users\WORK\Documents\Visual Studio 2015\Projects\Modbus_2.0\Modbus_2.0\bin\Debug\ModbusTCP.xml

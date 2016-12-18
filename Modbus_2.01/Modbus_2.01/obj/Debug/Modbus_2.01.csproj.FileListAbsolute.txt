@@ -1,0 +1,14 @@
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\bin\Debug\Modbus_2.01.dll
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\bin\Debug\Modbus_2.01.pdb
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.csprojResolveAssemblyReference.cache
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.dll
+c:\users\home\documents\visual studio 2015\Projects\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.pdb
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\bin\Debug\Modbus_2.01.dll
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\bin\Debug\Modbus_2.01.pdb
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\bin\Debug\ru\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.csprojResolveAssemblyReference.cache
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.dll
+D:\Work\Projects_VS\Modbus_2.01\Modbus_2.01\obj\Debug\Modbus_2.01.pdb
